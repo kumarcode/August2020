@@ -10,7 +10,7 @@ namespace August2020
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello Industry Connect!");
 
             // Init and define driver
             IWebDriver driver = new ChromeDriver();                 
