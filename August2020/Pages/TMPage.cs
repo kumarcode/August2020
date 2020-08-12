@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using August2020.Helpers;
+using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,13 +15,21 @@ namespace August2020.Pages
         {
 
             // Click new button
-            Thread.Sleep(1000);
+            WaitHelper.WaitClickable(driver, "XPath", "//*[@id='container']/p/a", 5);
             driver.FindElement(By.XPath("//*[@id='container']/p/a")).Click();
 
-            // Select a type code from the drop down list
-            driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span/span[1]")).Click();
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath("//*[@id='TypeCode_listbox']/li[2]")).Click();
+            try
+            {
+                // Select a type code from the drop down list
+                driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span/span[1]")).Click();
+                Thread.Sleep(1000);
+                driver.FindElement(By.XPath("//*[@id='TypeCode_listbox']/li[2]")).Click();
+            }
+            catch(Exception ex)
+            {
+                Assert.Fail("Create new TM page did not launch", ex.Message);
+            }
+           
 
             // Input a code value
             driver.FindElement(By.Id("Code")).SendKeys("August2020");

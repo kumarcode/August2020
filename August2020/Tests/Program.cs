@@ -1,4 +1,6 @@
-﻿using August2020.Pages;
+﻿using August2020.Helpers;
+using August2020.Pages;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
@@ -6,19 +8,14 @@ using System.Threading;
 
 namespace August2020
 {
-    class Program
+    [TestFixture]
+    [Parallelizable]
+    class Program : CommonDriver
     {
-        static void Main(string[] args)
+     
+        [Test, Description("Check if the user is able to create TM with valid data")]
+        public void CreateTM_Test()
         {
-            Console.WriteLine("Hello Industry Connect!");
-
-            // Init and define driver
-            IWebDriver driver = new ChromeDriver();                 
-
-            // Login page object init and definition
-            LoginPage loginObj = new LoginPage();
-            loginObj.LoginSteps(driver);
-
             // Home page object init and definition
             HomePage homeObj = new HomePage();
             homeObj.NavigateToTM(driver);
@@ -26,12 +23,33 @@ namespace August2020
             // TM page object init and definition
             TMPage tmObj = new TMPage();
             tmObj.CreateTM(driver);
+        }
 
+        [Test, Description("Check if the user is able to edit TM with valid data")]
+        public void EditTM_Test()
+        {
+            // Home page object init and definition
+            HomePage homeObj = new HomePage();
+            homeObj.NavigateToTM(driver);
+
+            // TM page object init and definition
+            TMPage tmObj = new TMPage();
             // Edit existing TM test
             tmObj.EditTM(driver);
+        }
 
-            // Delete existing TM test
+        [Test, Description("Check if the user is able to delete TM with valid data")]
+        public void DeleteTM_Test()
+        {
+            // Home page object init and definition
+            HomePage homeObj = new HomePage();
+            homeObj.NavigateToTM(driver);
+
+            // TM page object init and definition
+            TMPage tmObj = new TMPage();
+            // Edit existing TM test
             tmObj.DeleteTM(driver);
         }
+
     }
 }
